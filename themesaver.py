@@ -8,6 +8,8 @@
 # and modify it however you want
 #
 #
+
+
 #what to import
 import praw
 import sys
@@ -21,15 +23,23 @@ def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
     sys.stdout.write("Download progress: %d%%   \r" % (percent) )
     sys.stdout.flush()
+    
+    
 #Creates folder "files" if non-existant
 if not os.path.exists("files"):
     #creates the 'files' folder
     print("Creating 'files' folder...")
     os.makedirs("files")
     print("... Done")
+    
+    
 #defines location to save file
 downloadlocation = "files/"
+
+#praw name definition
 r = praw.Reddit('WebmAnimeSaver')
+
+#user input
 print("Hello, welcome to the /r/AnimeThemes submission downloader, ")
 print("please enter the interval time (minutes) between the searches: ")
 #^
@@ -51,22 +61,31 @@ while True:
             break
     except:
         print("There was a error in the value, please input a valid number!")
+        
+        
+#praw subreddit definition
 subreddit = r.get_subreddit('animethemes')
+
+
 #Main loop to continue updating
 while True:
     print("Getting submission information (may take time depending of new submissions number)...")
     for submission in subreddit.get_new(limit=postnumber):
         fileurl = submission.url
         postdomain = submission.domain
+        
         #replaces some characters
         filetitle = submission.title.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","")
+        
         print("")
         print("")
         print("")
         print("DOWNLOADING FROM: [" + fileurl + "]")
         print("FILE TITLE: [" + filetitle + "]")
         print("LOCATION: [" + downloadlocation + "]")
+        
         fileloc = downloadlocation + filetitle + ".webm"
+        
         #check if file isn't downloaded already and if the post submission isn't text
         if os.path.isfile(fileloc) == False and postdomain != 'self.AnimeThemes':
             urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
@@ -74,9 +93,12 @@ while True:
         else:
             print("File already present, jumping to next...")
             time.sleep(2)
+            
         print("///////////////////////////////////////")
     print("")
     print("> > > > No more new submissions, entering rest...")
+    
+    
     #Cooldown for the next check
     for x in range(0,waittime):
         timeleft = ((waittime*60)-(60*x))/60
