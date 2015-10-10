@@ -8,9 +8,6 @@
 # and modify it however you want
 #
 #
-
-
-#what to import
 #
 import praw
 import sys
@@ -21,6 +18,9 @@ import os.path
 import logging
 
 
+logging.basicConfig(filename='log.log', level=logging.DEBUG)
+logging.debug('Log start')
+logging.debug('/////////')
 
 def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
