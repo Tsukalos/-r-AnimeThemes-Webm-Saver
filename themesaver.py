@@ -102,6 +102,7 @@ while True:
 	
     for x in range(0,waittime):
         timeleft = ((waittime*60)-(60*x))/60
-        print(str(int(timeleft)) + " mintues remaining to next check...") 
+        sys.stdout.write(str(int(timeleft)) + " mintues remaining to next check...  \r")
+        sys.stdout.flush()
         time.sleep(60)
 
