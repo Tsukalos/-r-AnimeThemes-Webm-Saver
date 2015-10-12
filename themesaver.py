@@ -71,7 +71,7 @@ while True:
 		
         postdomain = submission.domain
 		
-        filetitle = submission.title.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","")
+        filetitle = submission.title.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","").replace("\u2665","")
 		
         print("")
         print("")
