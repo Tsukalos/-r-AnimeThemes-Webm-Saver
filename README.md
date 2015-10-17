@@ -9,4 +9,4 @@ Right now the code quality is pretty poor, so use it with caution.
 
 Now japanese characters (all unicode non-ascii) are removed from string, althoug I don't find this procedure right...
 
-As for now you need to have <a src="https://praw.readthedocs.org/en/stable/">praw</a> in your python library. 
+As for now you need to have <a href="https://praw.readthedocs.org/en/stable/">praw</a> in your python library. 
