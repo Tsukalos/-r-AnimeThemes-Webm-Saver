@@ -1,7 +1,7 @@
 #/r/AnimeThemes Anime Webm Saver
 #
 #Created by Pedrowski
-#Version: 0.0.2
+#Version: 0.1.1
 #Contact: /u/Pedrowski
 #
 # This is under the GNU GPL V3 so use it
