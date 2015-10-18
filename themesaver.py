@@ -9,6 +9,8 @@
 #
 #
 #
+
+# Imports
 import praw
 import sys
 import urllib.request
@@ -18,12 +20,14 @@ import os
 import os.path
 import logging
 
+
+# Basic log configuration, gonna upgrade this later
 logging.basicConfig(filename = "loggerEvents.log")
 
-
+# Download progress view
 def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
-    sys.stdout.write("Download progress: %d%%   \r" % (percent) )
+    sys.stdout.write("Download progress:   %d%%   \r" % (percent) )
     sys.stdout.flush()
 
 if not os.path.exists("files"):
