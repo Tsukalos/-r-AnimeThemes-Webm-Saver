@@ -29,6 +29,7 @@ def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
     sys.stdout.write("Download progress:   %d%%   \r" % (percent) )
     sys.stdout.flush()
+	
 
 if not os.path.exists("files"):
     #creates the 'files' folder
@@ -77,6 +78,7 @@ while True:
 	for submission in subreddit.get_new(limit=postnumber):
 		fileurl = submission.url
 		postdomain = submission.domain
+		originaltitle = submission.title
 		title = bytes(submission.title.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","").encode('ascii','ignore'))
 		filetitle = title.decode('unicode_escape')
 		try:
@@ -105,6 +107,7 @@ while True:
 		fileloc = downloadlocation + filetitle + ".webm"
 		
 		
+		
 		if os.path.isfile(fileloc) == False and postdomain != 'self.AnimeThemes':
 			urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
 			logging.info(fileurl)
@@ -112,7 +115,7 @@ while True:
 			logging.info('')
 			print("[DOWNLOAD COMPLETE.]")
 		else:
-			print("[File already present, jumping to next...]")
+			print("[File already present or file is not a video, jumping to next...]")
 			time.sleep(2)
 			
 			
