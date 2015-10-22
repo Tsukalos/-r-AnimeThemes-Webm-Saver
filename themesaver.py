@@ -24,6 +24,9 @@ import logging
 # Basic log configuration, gonna upgrade this later
 logging.basicConfig(filename = "loggerEvents.log")
 
+logger = logging.getLogger('saver')
+logger.basicConfig(filename = 'filesaved.log', level = logging.DEBUG, format='%(asctime)s %(message)s')
+
 # Download progress view
 def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
@@ -39,6 +42,9 @@ if not os.path.exists("files"):
 	
 #defines location to save file
 downloadlocation = "files/"
+
+#Creates or opens file for url saving
+
 
 r = praw.Reddit('WebmAnimeSaver')
 
