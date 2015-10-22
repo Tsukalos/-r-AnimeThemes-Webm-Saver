@@ -1,7 +1,7 @@
 #/r/AnimeThemes Anime Webm Saver
 #
 #Created by Pedrowski
-#Version: 0.1.1
+#Version: 0.2.0
 #Contact: /u/Pedrowski
 #
 # This is under the GNU GPL V3 so use it
@@ -21,11 +21,27 @@ import os.path
 import logging
 
 
-# Basic log configuration, gonna upgrade this later
-logging.basicConfig(filename = "loggerEvents.log")
+#LOGGING CONFIGURATION
+# create logger
+loggerDownload = logging.getLogger('[Donwload Log]')
+loggerDownload.setLevel(logging.DEBUG)
+loggerError = logging.getLogger('[Error Log]')
+loggerError.setLevel(logging.DEBUG)
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(message)s')
+# create filehandlers
+fhd = logging.FileHandler('downloadlog.log')
+fhe = logging.FileHandler('errorlog.log')
+# set formatters
+fhd.setFormatter(formatter)
+fhe.setFormatter(formatter)
+# set logging levels
+fhd.setLevel(logging.DEBUG)
+fhe.setLevel(logging.DEBUG)
+# add handlers
+loggerDownload.addHandler(fhd)
+loggerError.addHandler(fhe)
 
-logger = logging.getLogger('saver')
-logger.basicConfig(filename = 'filesaved.log', level = logging.DEBUG, format='%(asctime)s %(message)s')
 
 # Download progress view
 def downloadhook(count, blockSize, totalSize):
@@ -43,7 +59,6 @@ if not os.path.exists("files"):
 #defines location to save file
 downloadlocation = "files/"
 
-#Creates or opens file for url saving
 
 
 r = praw.Reddit('WebmAnimeSaver')
@@ -79,13 +94,15 @@ subreddit = r.get_subreddit('animethemes')
 
 
 while True:
-	print("Getting submission information (may take time depending of new submissions number)...")
+	print("Getting submission information") 
+	print("(may take time depending of new submissions number)...")
 
 	for submission in subreddit.get_new(limit=postnumber):
 		fileurl = submission.url
 		postdomain = submission.domain
 		originaltitle = submission.title
-		title = bytes(submission.title.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","").encode('ascii','ignore'))
+		id = submission.id
+		title = bytes(originaltitle.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","").encode('ascii','ignore'))
 		filetitle = title.decode('unicode_escape')
 		try:
 			url = urllib.request.urlopen(fileurl)
@@ -95,10 +112,10 @@ while True:
 			print(fileurl)
 			print(filetitle)
 			print("[Error message:]" , err.reason, err.code)
-			logging.error("Error in requesting %s from url %s",filetitle,fileurl)
-			logging.error("%s %s",err.reason, err.code)
-			logging.error(err.headers)
-			print("[Error details in loggerEvents.log]")
+			loggerError.error("Error in requesting %s from url %s",filetitle,fileurl)
+			loggerError.error("%s %s",err.reason, err.code)
+			loggerError.error(err.headers)
+			print("[Error details in errorlog.log]")
 			continue
 		
 		
@@ -116,9 +133,7 @@ while True:
 		
 		if os.path.isfile(fileloc) == False and postdomain != 'self.AnimeThemes':
 			urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
-			logging.info(fileurl)
-			logging.info(fileloc)
-			logging.info('')
+			loggerDownload.info('Submission id: %s | Original name: %s | File name: %s | Url: %s',id,originaltitle,filetitle,fileurl)
 			print("[DOWNLOAD COMPLETE.]")
 		else:
 			print("[File already present or file is not a video, jumping to next...]")
