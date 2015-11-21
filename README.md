@@ -5,10 +5,10 @@ If you have any suggestions or want to help in some way, feel free to contact me
 
 Right now the code quality is pretty poor, so use it with caution.
 
-<strike>I'm having trouble in dealing with jp characters, so...</strike>
+~~I'm having trouble in dealing with jp characters, so...~~
 
 Now japanese characters (all unicode non-ascii) are removed from string, althoug I don't find this procedure right...
 
 As for now you need to have <b><a href="https://praw.readthedocs.org/en/stable/">praw</a></b> in your python library. 
 
-Some domains may not work(like my.mixtape.moe) but most of them does, i'm working on it.
+Some domains may not work(~~like my.mixtape.moe~~) but most of them does, i'm working on it.
