@@ -43,6 +43,12 @@ loggerDownload.addHandler(fhd)
 loggerError.addHandler(fhe)
 
 
+#Header for urllib
+USERHEAD = "Script for automatic download of webms, made by /u/Pedrowski"
+#Default location
+FILEDIR = "files"
+
+
 # Download progress view
 def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
@@ -50,18 +56,18 @@ def downloadhook(count, blockSize, totalSize):
     sys.stdout.flush()
 	
 
-if not os.path.exists("files"):
+if not os.path.exists(FILEDIR):
     #creates the 'files' folder
-    print("Creating 'files' folder...")
-    os.makedirs("files")
+    print("Creating '"+FILEDIR+"' folder...")
+    os.makedirs(FILEDIR)
     print("... Done")
 	
 #defines location to save file
-downloadlocation = "files/"
+downloadlocation = FILEDIR+"/"
 
 
 
-r = praw.Reddit('WebmAnimeSaver')
+r = praw.Reddit('AnimeThemeSaver')
 
 print("Hello, welcome to the /r/AnimeThemes submission downloader, ")
 print("please enter the interval time (minutes) between the searches: ")
@@ -75,15 +81,15 @@ while True:
     except:
         print("There was a error in the value, please input a valid number!")
 print("Enter the number of new submissions,")
-print("the program should check each time (MAX 100): ")
+print("the program should check each time (MAX 1000): ")
 #^
 
 
 while True:
     try:
         postnumber = int(input())
-        if postnumber > 200:
-            print("The value is too high, please input a value lower than 100 submissions")
+        if postnumber > 1000:
+            print("The value is too high, please input a value lower than 1000 submissions")
         else:
             break
     except:
@@ -105,7 +111,8 @@ while True:
 		title = bytes(originaltitle.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","").encode('ascii','ignore'))
 		filetitle = title.decode('unicode_escape')
 		try:
-			url = urllib.request.urlopen(fileurl)
+			url = urllib.request.Request(fileurl, headers = {'User-Agent': USERHEAD})
+			url = urllib.request.urlopen(url)
 		except (urllib.error.URLError, urllib.error.HTTPError) as err:
 			print("///////////////////////////////////////")
 			print("[There was a error with requesting the file from the url:] ")
@@ -132,7 +139,10 @@ while True:
 		
 		
 		if os.path.isfile(fileloc) == False and postdomain != 'self.AnimeThemes':
-			urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
+			with open(fileloc, "wb") as f:
+				f.write(url.read())
+			#Old ulrretrieve method	
+			#urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
 			loggerDownload.info('Submission id: %s | Original name: %s | File name: %s | Url: %s',id,originaltitle,filetitle,fileurl)
 			print("[DOWNLOAD COMPLETE.]")
 		else:
