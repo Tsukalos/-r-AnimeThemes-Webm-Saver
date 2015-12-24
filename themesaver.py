@@ -1,7 +1,7 @@
 #/r/AnimeThemes Anime Webm Saver
 #
 #Created by Pedrowski
-#Version: 0.2.0
+#Version: 0.4.0
 #Contact: /u/Pedrowski
 #
 # This is under the GNU GPL V3 so use it
@@ -81,15 +81,15 @@ while True:
     except:
         print("There was a error in the value, please input a valid number!")
 print("Enter the number of new submissions,")
-print("the program should check each time (MAX 1000): ")
+print("the program should check each time (MAX 100): ")
 #^
 
 
 while True:
     try:
         postnumber = int(input())
-        if postnumber > 1000:
-            print("The value is too high, please input a value lower than 1000 submissions")
+        if postnumber > 800:
+            print("The value is too high, please input a value lower than 100 submissions")
         else:
             break
     except:
@@ -108,7 +108,7 @@ while True:
 		postdomain = submission.domain
 		originaltitle = submission.title
 		id = submission.id
-		title = bytes(originaltitle.replace('"', '').replace(':', '').replace('?', '').replace('/','').replace("'","").encode('ascii','ignore'))
+		title = bytes(originaltitle.replace('"','').replace(':','').replace('?','').replace('/','').replace("'","").replace("*","").encode('ascii','ignore'))
 		filetitle = title.decode('unicode_escape')
 		try:
 			url = urllib.request.Request(fileurl, headers = {'User-Agent': USERHEAD})
