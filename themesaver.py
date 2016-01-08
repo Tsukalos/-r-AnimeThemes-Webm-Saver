@@ -1,7 +1,7 @@
 #/r/AnimeThemes Anime Webm Saver
 #
 #Created by Pedrowski
-#Version: 0.4.0
+#Version: 0.5
 #Contact: /u/Pedrowski
 #
 # This is under the GNU GPL V3 so use it
@@ -30,8 +30,8 @@ loggerError.setLevel(logging.DEBUG)
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(message)s')
 # create filehandlers
-fhd = logging.FileHandler('downloadlog.log')
-fhe = logging.FileHandler('errorlog.log')
+fhd = logging.FileHandler('downloadlog.log', encoding='utf-8')
+fhe = logging.FileHandler('errorlog.log', encoding='utf-8')
 # set formatters
 fhd.setFormatter(formatter)
 fhe.setFormatter(formatter)
@@ -45,11 +45,14 @@ loggerError.addHandler(fhe)
 
 #Header for urllib
 USERHEAD = "Script for automatic download of webms, made by /u/Pedrowski"
-#Default location
+##Default location
+#Download directory
 FILEDIR = "files"
+#Downloaded ids
+DOWNLOADED = "dtracker"
 
 
-# Download progress view
+# Download progress view (not used anymore)
 def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
     sys.stdout.write("Download progress:   %d%%   \r" % (percent) )
@@ -61,6 +64,11 @@ if not os.path.exists(FILEDIR):
     print("Creating '"+FILEDIR+"' folder...")
     os.makedirs(FILEDIR)
     print("... Done")
+
+#creates the file id
+if not os.path.isfile(DOWNLOADED):
+	f = open(DOWNLOADED,"x")
+	f.close()
 	
 #defines location to save file
 downloadlocation = FILEDIR+"/"
@@ -108,6 +116,7 @@ while True:
 		postdomain = submission.domain
 		originaltitle = submission.title
 		id = submission.id
+		
 		title = bytes(originaltitle.replace('"','').replace(':','').replace('?','').replace('/','').replace("'","").replace("*","").encode('ascii','ignore'))
 		filetitle = title.decode('unicode_escape')
 		try:
@@ -125,7 +134,6 @@ while True:
 			print("[Error details in errorlog.log]")
 			continue
 		
-		
 		print("")
 		print("")
 		print("")
@@ -133,23 +141,37 @@ while True:
 		print("[FILE TITLE:] " + filetitle)
 		print("[LOCATION:] " + downloadlocation)
 		
+		#checks if submission is a text post
+		if postdomain == 'self.AnimeThemes':
+			print("File is not a video, jumping to next...]")
+			time.sleep(2)
+			continue
+		
+		
+		flag = False
+		fa = open(DOWNLOADED,"r")
+		for line in fa:
+			if str(line) == (id+"\n"):
+				print("[File already present, jumping to next...]")
+				flag = True
+				break
+		fa.close();
+		if flag == True:
+			continue
+		
 		
 		fileloc = downloadlocation + filetitle + ".webm"
-		
-		
-		
-		if os.path.isfile(fileloc) == False and postdomain != 'self.AnimeThemes':
-			with open(fileloc, "wb") as f:
-				f.write(url.read())
-			#Old ulrretrieve method	
-			#urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
-			loggerDownload.info('Submission id: %s | Original name: %s | File name: %s | Url: %s',id,originaltitle,filetitle,fileurl)
-			print("[DOWNLOAD COMPLETE.]")
-		else:
-			print("[File already present or file is not a video, jumping to next...]")
-			time.sleep(2)
 			
-			
+		with open(fileloc, mode="wb") as f:
+			f.write(url.read())
+		f.close();
+		fid = open(DOWNLOADED,"a")
+		fid.write(id+"\n");
+		fid.close();
+		#Old ulrretrieve method	
+		#urllib.request.urlretrieve(fileurl,fileloc, reporthook=downloadhook)
+		loggerDownload.info('Submission id: %s | Original name: %s | File name: %s | Url: %s',id,originaltitle,filetitle,fileurl)
+		print("[DOWNLOAD COMPLETE.]")
 		print("///////////////////////////////////////")
 		
 	print("")
