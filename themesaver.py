@@ -89,14 +89,14 @@ while True:
     except:
         print("There was a error in the value, please input a valid number!")
 print("Enter the number of new submissions,")
-print("the program should check each time (MAX 100): ")
+print("the program should check each time (MAX 1000): ")
 #^
 
 
 while True:
     try:
         postnumber = int(input())
-        if postnumber > 800:
+        if postnumber > 1000:
             print("The value is too high, please input a value lower than 100 submissions")
         else:
             break
