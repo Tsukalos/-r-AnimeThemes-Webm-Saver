@@ -1,4 +1,4 @@
-# AnimeThemesSaver
+# redditATS (AnimeThemesSaver)
 Automated webm downloader whichs download anime openings and endings from /r/AnimeThemes
 
 If you have any suggestions or want to help in some way, feel free to contact me: <b><a href="https://www.reddit.com/user/Pedrowski/">/u/Pedrowski</a></b>
@@ -26,3 +26,7 @@ For more details please visit the Praw website.
 > [Python](https://www.python.org/)
 
 > [Using pip on windows](http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows)
+
+### Roadmap
+
+> Improve Search system
