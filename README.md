@@ -12,7 +12,7 @@ If some domain don't allow you to download the files, please let me know.
 This has only been tested on version 3.5.1 of python.
 
 If the japanese character aren't showing properly in the logs, set your system locale to japanese, or simply use 
-a better text editor ( I recommend [Notepad++](https://notepad-plus-plus.org/) )
+a better text editor ( like [Notepad++](https://notepad-plus-plus.org/) )
 
 ## Installing Praw
 Praw is easily installed using [pip](https://pypi.python.org/pypi/pip)
