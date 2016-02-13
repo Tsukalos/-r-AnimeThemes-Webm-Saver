@@ -180,6 +180,8 @@ def downloadsub(submission):
 def search(r):
 	print("Please type the name of the series you want to look for")
 	anititle = str(input())
+	print("")
+	print("")
 	print("Are you looking for a 'op' or 'ed'? (type 'x' to leave it alone)")
 	while True:
 		type = str(input())
@@ -196,7 +198,8 @@ def search(r):
 	sublist = list()
 	k = 0
 	for submission in submissions:
-		print("["+str(k)+"] 	"+bytes(submission.title.encode("ascii","ignore")).decode('unicode_escape'))
+		print("["+str(k)+"] 	- - "+bytes(submission.title.encode("ascii","ignore")).decode('unicode_escape'))
+		print("")
 		k = k+1
 		sublist.append(submission)
 	
