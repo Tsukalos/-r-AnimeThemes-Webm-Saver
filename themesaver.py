@@ -67,6 +67,8 @@ if not os.path.isfile(DOWNLOADED):
 #defines location to save file
 downloadlocation = FILEDIR+"/"
 
+
+### Gets the comments of the post to look for mirrors (many archived posts have mirrors in the comments because the shutdown of a.pomf)
 def commentmirror(submission):
 	flatcom = praw.helpers.flatten_tree(submission.comments)
 	for comment in flatcom:
@@ -77,12 +79,13 @@ def commentmirror(submission):
 			return fileurl
 			
 	return "None"
-
+## Unused function (old legacy urllib method)
 def downloadhook(count, blockSize, totalSize):
     percent = int(count*blockSize*100/totalSize)
     sys.stdout.write("Download progress:   %d%%   \r" % (percent) )
     sys.stdout.flush()
-	
+
+## gets the submission and downloads, also logs to file	
 def downloadsub(submission):
 	errorflag = False
 	mirrorflag = False
@@ -173,6 +176,7 @@ def downloadsub(submission):
 	print("[DOWNLOAD COMPLETE.]")
 	print("///////////////////////////////////////")
 
+## search function
 def search(r):
 	print("Please type the name of the series you want to look for")
 	anititle = str(input())
@@ -217,6 +221,7 @@ def search(r):
 		
 #end search
 
+## looks for new submissions in the subreddit
 def new(r):
 	
 	print("please enter the interval time (minutes) between the searches: ")
@@ -269,7 +274,7 @@ def new(r):
 
 #end new
 
-#main program
+#### Main Program
 r = praw.Reddit('AnimeThemeSaver')
 
 print("Hello, welcome to the /r/AnimeThemes submission downloader, ")
