@@ -3,10 +3,10 @@ Automated webm downloader whichs download anime openings and endings from /r/Ani
 
 ## Features
 
-### Search
+####  Search
 Find the OP & ED of the series you are looking for. If the link is down, it will try to look for mirrors in the comments.
 
-### New posts
+####   New posts
 Regular searching for new submissons in the subreddit, useful for servers or people who want to keep all the files.
 
 <hr>
