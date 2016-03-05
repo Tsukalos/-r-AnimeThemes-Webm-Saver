@@ -15,7 +15,7 @@ If you have any suggestions or want to help in some way, feel free to contact me
 
 **Note** : Japanese characters (all unicode non-ascii) are removed from string, although I don't find this procedure right...
 
-As for now you need to have <b><a href="https://praw.readthedocs.org/en/stable/">praw</a></b> in your python library. 
+As for now you need to have <b><a href="https://praw.readthedocs.org/en/stable/">praw</a></b> (tested with version 3.3.0) in your python library. 
 
 If some domain don't allow you to download the files, please let me know.
 
@@ -24,6 +24,7 @@ This has only been tested on version 3.5.1 of python.
 If the japanese character aren't showing properly in the logs, set your system locale to japanese, or simply use 
 a better text editor ( like [Notepad++](https://notepad-plus-plus.org/) ).
 
+There will probably many things still to be implemented, so I count with everyone to state errors and what is left.
 ## To-do list
 
 * Check if the url contains a webm (video) file.
