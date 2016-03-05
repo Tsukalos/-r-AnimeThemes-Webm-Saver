@@ -24,7 +24,10 @@ This has only been tested on version 3.5.1 of python.
 If the japanese character aren't showing properly in the logs, set your system locale to japanese, or simply use 
 a better text editor ( like [Notepad++](https://notepad-plus-plus.org/) ).
 
+
 There will probably many things still to be implemented, so I count with everyone to state errors and what is left.
+
+
 ## To-do list
 
 * Check if the url contains a webm (video) file.
