@@ -26,19 +26,19 @@ a better text editor ( like [Notepad++](https://notepad-plus-plus.org/) ).
 
 ## To-do list
 
-> Check if the url contains a webm (video) file.
+* Check if the url contains a webm (video) file.
 
-> Better logging.
+* Better logging.
 
 ## Installing Praw
 Praw is easily installed using [pip](https://pypi.python.org/pypi/pip)
 
-`pip install praw`
+> `pip install praw`
 
 For more details please visit the Praw website.
 
 ### Useful links
 
-> [Python](https://www.python.org/)
+* [Python](https://www.python.org/)
 
-> [Using pip on windows](http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows)
+* [Using pip on windows](http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows)
